@@ -5,7 +5,8 @@ $(document).ready(function(){
 })
 
 
-
+// https://documenter.getpostman.com/view/4876530/SzRxUpPv?version=latest
+//https://disease.sh/v2/countries/hk
 
 var kon = document.getElementById("kon");  // Confirm number
 var rek = document.getElementById("rek");  // recover number
@@ -144,11 +145,14 @@ var balyu = document.getElementById("select1").value;
 
 function infofetch(){
 
+
+this.flagy();
 this.getcon();
 this.getrek();
 this.haist();
-this.flagy();
 this.grab();
+
+
 
 
 	
@@ -170,11 +174,12 @@ function flagy(){
 
 
 
- fetch('https://restcountries.eu/rest/v2/alpha/' + balyu)
+ //fetch('https://restcountries.eu/rest/v2/alpha/' + balyu)
+ fetch('https://disease.sh/v2/countries/' + balyu)
 	.then((resp) => resp.json()) // Transform the data into json
 	.then( data => { 
 
-		var bc = data.name;
+		var bc = data.country;
 		var bd = data.population;
 
 		countrydetails.innerHTML = bc;
@@ -197,7 +202,8 @@ function grab(){
 	var bansa = document.getElementById("countrydetails").textContent;
 	var bansag = bansa.toString();
 
-	fetch('https://covid19.mathdro.id/api/countries/' + balyu) // rejects
+	//fetch('https://covid19.mathdro.id/api/countries/' + balyu) // rejects
+	fetch('https://disease.sh/v2/countries/' + balyu) // rejects
     .then(function(response) {
       if (response.status !== 200) {
         // make the promise be rejected if we didn't get a 200 response
@@ -236,11 +242,12 @@ function datos(){
 	
 	var balyu = document.getElementById("select1").value;
 
-	fetch('https://covid19.mathdro.id/api/countries/' + balyu)
+	fetch('https://disease.sh/v2/countries/' + balyu)
 	.then((resp) => resp.json()) // Transform the data into json
 	.then( data => { 
 
 		// ibalik ang nawala 
+
 
 		
 		errorto.style.display="none";	 
@@ -252,10 +259,10 @@ function datos(){
 
         // data grab
 		 
-		var ca = data.lastUpdate;  // date 		
-		var cb = data.confirmed.value;  // confirmed cases
-		var cd = data.recovered.value; // recovered cases
-		var ce = data.deaths.value; // deds cases
+		var ca = data.updated;  // date 	naka epoch pa ito	
+		var cb = data.cases;  // confirmed cases
+		var cd = data.recovered; // recovered cases
+		var ce = data.deaths; // deds cases
 
 		
 
