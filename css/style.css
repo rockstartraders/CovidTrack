@@ -510,7 +510,7 @@ p.updated{
 
 @media screen and (orientation:landscape) {
    
-    *{
+    body{
         display: none;
     }
 

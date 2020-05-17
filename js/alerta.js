@@ -2,10 +2,10 @@
 
 window.addEventListener("orientationchange", function() {                   
     if (window.matchMedia("(orientation: portrait)").matches) {
-       
+        alert("Apologies but This is not optimize to work on a landscape view.Please revert it back to Portrait.");
      }
     if (window.matchMedia("(orientation: landscape)").matches) {
-      alert("Apologies but This is not optimize to work on a landscape view.Please revert it back to Portrait.");
+      
      }
 }, false);
 
