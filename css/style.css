@@ -442,7 +442,6 @@ p.updated{
 }
 
 
-
 @media (max-width: 600px) {
 
     body{
@@ -509,6 +508,11 @@ p.updated{
 } /* end of first media query */
 
 
-@media screen and (min-width: 320px) and (max-width: 767px) and (orientation: landscape) {
- 
+@media screen and (orientation:landscape) {
+   
+    *{
+        display: none;
+    }
+
+
   }
