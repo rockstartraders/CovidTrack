@@ -508,11 +508,3 @@ p.updated{
 } /* end of first media query */
 
 
-@media screen and (orientation:landscape) {
-   
-    body{
-        display: none;
-    }
-
-
-  }
