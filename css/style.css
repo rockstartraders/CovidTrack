@@ -82,7 +82,8 @@ body {
 
 #oww{
    padding-top: 12px;
-   padding-bottom: 5px;
+   padding-bottom: -5px;
+   
 
 }
 
@@ -92,7 +93,8 @@ body {
     background-color: rgba(54,53,53, 0);
     /* float: left; */
     margin-top: 20%; 
-    border-bottom: 20px solid rgba(84,110,122, 0.6);
+    border-bottom: 20px solid #b18e26;
+    /* rgba(84,110,122, 0.6); */ 
 
     
    
@@ -133,7 +135,8 @@ body {
 
  p#awts{
 
-    margin-top: 6px; /* bagong dagdag para lang mag align*/
+    margin-top: 6px; /* bagong dagdag para lang mag align*/   
+    margin-bottom: 2px;
     line-height: 30px;
     font-weight: 900;
     letter-spacing: 1px;
@@ -143,6 +146,9 @@ body {
     font-size: calc(16px + (18- 14) * ((100vw - 300px) / (1600 - 300)));
     text-transform: uppercase;  
     position: inherit;
+    text-align: center;
+
+    
     
    
    
@@ -168,6 +174,7 @@ body {
     border-radius: 2px;    
     font-size: calc(16px + (18- 14) * ((100vw - 300px) / (1600 - 300)));
     text-transform: uppercase;   
+    
  }
 
 
@@ -200,12 +207,14 @@ body {
 #ded, #Rekober, #konpirm{
    
     line-height: normal;
+    
 
 }
 
 p#ded, p#Rekober, p#konpirm {
     margin: 0;
     text-align: left;
+    text-align: center;
     
 
 }
@@ -406,7 +415,7 @@ p.updated{
 }
 
 
-#abangwan, #abangtwon, #abangtres{
+#abangwan, #abangtwon, #abangtres, #abangkwatro, #abangwana{
    font-size: calc(15px + 0.1rem);
    text-align: left;
    font-weight: 700;
@@ -442,6 +451,12 @@ p.updated{
 }
 
 
+#abangkwatro{
+    margin-top: 2px;
+    margin-bottom: 3px;
+}
+
+
 @media (max-width: 600px) {
 
     body{
@@ -460,7 +475,8 @@ p.updated{
 
        margin-top: 5%; 
        padding:auto;       
-       border-bottom: 20px solid rgba(84,110,122, 0.6);
+       border-bottom: 20px solid #b18e26;
+       /* rgba(84,110,122, 0.6); */
 
       }
 
@@ -504,6 +520,11 @@ p.updated{
         
         
       }
+
+      #abangkwatro{
+        margin-top: 0;
+        margin-bottom: 0;
+    }
 
 } /* end of first media query */
 

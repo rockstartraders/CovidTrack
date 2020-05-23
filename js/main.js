@@ -15,6 +15,10 @@ var updated = document.getElementById("updated");  // para date ng update
 var abangwan = document.getElementById("abangwan");  // para confirm sub cases
 var abangtwon = document.getElementById("abangtwon");  // para active sub cases
 var abangtres = document.getElementById("abangtres");  // para ded sub sub cases
+var abangkwatro = document.getElementById("abangkwatro");  
+var abangwana = document.getElementById("abangwana");  
+
+
 
 var plag = document.getElementById("plag");  // flag image
 var popul = document.getElementById("popul");  // total popul
@@ -147,9 +151,6 @@ function infofetch(){
 
 
 this.flagy();
-this.getcon();
-this.getrek();
-this.haist();
 this.grab();
 
 
@@ -183,10 +184,12 @@ function flagy(){
 		var bd = data.population;
 
 		countrydetails.innerHTML = bc;
-		popul.innerHTML = ("-Population of " + konvert.format(bd).fontcolor("#ffc40d") + "<br>" + "<br>");
+		popul.innerHTML = ("-Population of " + konvert.format(bd).fontcolor("#FFEEAA") + "<br>" + "<br>");
 
 		
+		
 
+		
 
 	})	
 	
@@ -264,15 +267,42 @@ function datos(){
 		var cd = data.recovered; // recovered cases
 		var ce = data.deaths; // deds cases
 
+
+		var zz = data.todayCases;
+		var qwr = data.active;
+		var pop = data.tests;
+		var zzz = data.todayDeaths;
+		var zzzz = data.critical;
+
+		// kulay 
+
+		var ty = konvert.format(zz).toString().fontcolor("#FFEEAA");
+		var yyt = konvert.format(qwr).toString().fontcolor("#FFEEAA");
+		var tty = konvert.format(zzz).toString().fontcolor("#e53935");  // red
+		var popi = konvert.format(pop).toString().fontcolor("#FFEEAA");
+		var ttyy = konvert.format(zzzz).toString().fontcolor("#f44336"); // crtitical
+
+
+
+		// plus color 
+		
+		var plas = ("+").fontcolor("#00CCCC");
 		
 
 
 		// data post 
 
-		updated.innerHTML = "</br>" + moment(ca).format('LLL').fontcolor("#EC826A") + "</br>" + "Last Update ";
+		updated.innerHTML = "</br>" + moment(ca).format('LLL').fontcolor("EC826A") + "</br>" + "Last Update ";
 		kon.innerHTML = "<br>" + konvert.format(cb); 
 		rek.innerHTML = "<br>" + konvert.format(cd);
-		oww.innerHTML = "<br>" + konvert.format(ce);
+		oww.innerHTML = "<br>" + konvert.format(ce);		
+		abangwan.innerHTML = "New Cases " + plas + ty;
+		abangwana.innerHTML = "Active Cases " + yyt;
+		abangtwon.innerHTML = "Number of Tested " + popi + "</br></br>";
+		abangtres.innerHTML = "New Deaths " + plas + tty;
+		abangkwatro.innerHTML = "Critical " + ttyy;
+
+		
 
 
 	
@@ -315,210 +345,216 @@ var b = x.getDate()-2;
 } // end of function kahapon
 
 
+	
+
+// dump 
+
+
 
 function getcon(){
 
-abangwan.style.display="none";
-
-var balyu = document.getElementById("select1").value;
-
-fetch('https://cors-anywhere.herokuapp.com/https://covid-api.mmediagroup.fr/v1/history?ab=' + balyu +'&status=Confirmed')
-.then((resp) => resp.json()) // Transform the data into json
-.then( data => { 
-  
-  try{
+	abangwan.style.display="none";
 	
-	var gsquare = document.getElementById("kahaponito").textContent; 
-	var ga = data;
-	var gb = JSON.stringify(ga);
-	var gc = JSON.parse(gb);
-
-	var gd = (gc.All.dates[gsquare]);  // answer kahapon
-	var ge = kon.textContent;
-	var gf = ge.replace(/\D/g, "");  // regex only numbers 
-
-	var minggegf = (parseFloat(gf) - parseFloat(gd));
-	var mingming = konvert.format(minggegf).toString();
-
-	var plas = ("+").fontcolor("#00CCCC");
-	var cobra = mingming.fontcolor("#FFEEAA");
+	var balyu = document.getElementById("select1").value;
 	
+	fetch('https://cors-anywhere.herokuapp.com/https://covid-api.mmediagroup.fr/v1/history?ab=' + balyu +'&status=Confirmed')
+	.then((resp) => resp.json()) // Transform the data into json
+	.then( data => { 
+	  
+	  try{
+		
+		var gsquare = document.getElementById("kahaponito").textContent; 
+		var ga = data;
+		var gb = JSON.stringify(ga);
+		var gc = JSON.parse(gb);
 	
-
-    
-   if (minggegf > gd){
-	abangwan.style.display="block";
-	//abangwan.innerHTML=("Unable To Fetch Previous data");
-	abangwan.innerHTML=("</br>");
+		var gd = (gc.All.dates[gsquare]);  // answer kahapon
+		var ge = kon.textContent;
+		var gf = ge.replace(/\D/g, "");  // regex only numbers 
 	
+		var minggegf = (parseFloat(gf) - parseFloat(gd));
+		var mingming = konvert.format(minggegf).toString();
 	
-     
-	}
+		var plas = ("+").fontcolor("#00CCCC");
+		var cobra = mingming.fontcolor("#FFEEAA");
+		
+		
 	
-	else if(minggegf <= 0){
+		
+	   if (minggegf > gd){
+		abangwan.style.display="block";
+		//abangwan.innerHTML=("Unable To Fetch Previous data");
+		abangwan.innerHTML=("</br>");
+		
+		
+		 
+		}
+		
+		else if(minggegf <= 0){
+			abangwan.style.display="block";
+			abangwan.innerHTML=("</br>");
+			
+	
+		} 
+	  
+	  else{  
+		abangwan.style.display="block";
+		abangwan.innerHTML=(plas +  cobra + " From The Previous Count");
+		
+	   }
+	  
+	 }catch(err){
 		abangwan.style.display="block";
 		abangwan.innerHTML=("</br>");
 		
-
-	} 
-  
-  else{  
-	abangwan.style.display="block";
-	abangwan.innerHTML=(plas +  cobra + " From The Previous Count");
-	
-   }
-  
- }catch(err){
-	abangwan.style.display="block";
-	abangwan.innerHTML=("</br>");
-	
- }
- 
-  
-     });
+	 }
+	 
 	  
-	  
-
-
-}// end of function getcon
-
-
-
-
-function getrek(){
-
-	abangtwon.style.display="none";
+		 });
+		  
+		  
 	
-	var balyu = document.getElementById("select1").value;
 	
-	fetch('https://cors-anywhere.herokuapp.com/https://covid-api.mmediagroup.fr/v1/history?ab=' + balyu +'&status=Recovered')
-	.then((resp) => resp.json()) // Transform the data into json
-	.then( data => { 
-	  
-	  try{
-		
-		var gsquare = document.getElementById("kahaponito").textContent; 
-		var gaa = data;
-		var gba = JSON.stringify(gaa);
-		var gca = JSON.parse(gba);
+	}// end of function getcon
 	
-		var gda = (gca.All.dates[gsquare]);  // answer kahapon
-		var gea = rek.textContent;
-		var gfa = gea.replace(/\D/g, "");  // regex only numbers 
 	
-		var minggegfa = (parseFloat(gfa) - parseFloat(gda));
-		var mingminga = konvert.format(minggegfa).toString();
 	
-		var plasa = ("+").fontcolor("#66ff00");
-		var cobraa = mingminga.fontcolor("#FFEEAA");
-		
-		
 	
+	function getrek(){
+	
+		abangtwon.style.display="none";
 		
-	   if (minggegfa > gda){
-		abangtwon.style.display="block";
-		//abangwan.innerHTML=("Unable To Fetch Previous data");
-		abangtwon.innerHTML=("</br>");
+		var balyu = document.getElementById("select1").value;
 		
+		fetch('https://cors-anywhere.herokuapp.com/https://covid-api.mmediagroup.fr/v1/history?ab=' + balyu +'&status=Recovered')
+		.then((resp) => resp.json()) // Transform the data into json
+		.then( data => { 
+		  
+		  try{
+			
+			var gsquare = document.getElementById("kahaponito").textContent; 
+			var gaa = data;
+			var gba = JSON.stringify(gaa);
+			var gca = JSON.parse(gba);
 		
-		 
-		}
+			var gda = (gca.All.dates[gsquare]);  // answer kahapon
+			var gea = rek.textContent;
+			var gfa = gea.replace(/\D/g, "");  // regex only numbers 
 		
-		else if(minggegfa <= 0){
+			var minggegfa = (parseFloat(gfa) - parseFloat(gda));
+			var mingminga = konvert.format(minggegfa).toString();
+		
+			var plasa = ("+").fontcolor("#66ff00");
+			var cobraa = mingminga.fontcolor("#FFEEAA");
+			
+			
+		
+			
+		   if (minggegfa > gda){
+			abangtwon.style.display="block";
+			//abangwan.innerHTML=("Unable To Fetch Previous data");
+			abangtwon.innerHTML=("</br>");
+			
+			
+			 
+			}
+			
+			else if(minggegfa <= 0){
+				abangtwon.style.display="block";
+				abangtwon.innerHTML=("</br>");
+				
+		
+			} 
+		  
+		  else{  
+			abangtwon.style.display="block";
+			abangtwon.innerHTML=(plasa +  cobraa + " From The Previous Count");
+			
+		   }
+		  
+		 }catch(err){
 			abangtwon.style.display="block";
 			abangtwon.innerHTML=("</br>");
 			
-	
-		} 
-	  
-	  else{  
-		abangtwon.style.display="block";
-		abangtwon.innerHTML=(plasa +  cobraa + " From The Previous Count");
-		
-	   }
-	  
-	 }catch(err){
-		abangtwon.style.display="block";
-		abangtwon.innerHTML=("</br>");
-		
-	 }
-	 
-	  
-		 });
-		  
-		  
-	
-	
-	}// end of function getrek
-
-
-
-
-function haist(){
-
-	abangtres.style.display="none";
-	
-	var balyu = document.getElementById("select1").value;
-	
-	fetch('https://cors-anywhere.herokuapp.com/https://covid-api.mmediagroup.fr/v1/history?ab=' + balyu +'&status=Deaths')
-	.then((resp) => resp.json()) // Transform the data into json
-	.then( data => { 
-	  
-	  try{
-		
-		var gsquare = document.getElementById("kahaponito").textContent; 
-		var gaab = data;
-		var gbab = JSON.stringify(gaab);
-		var gcab = JSON.parse(gbab);
-	
-		var gdab = (gcab.All.dates[gsquare]);  // answer kahapon
-		var geab = oww.textContent;
-		var gfab = geab.replace(/\D/g, "");  // regex only numbers 
-	
-		var minggegfab = (parseFloat(gfab) - parseFloat(gdab));
-		var mingmingab = konvert.format(minggegfab).toString();
-	
-		var plasab = ("+").fontcolor("#F7653F");
-		var cobraab = mingmingab.fontcolor("#FFEEAA");
-		
-		
-	
-		
-	   if (minggegfab > gdab){
-		abangtres.style.display="block";
-		//abangwan.innerHTML=("Unable To Fetch Previous data");
-		abangtres.innerHTML=("</br>");
-		
-		
+		 }
 		 
-		}
+		  
+			 });
+			  
+			  
 		
-		else if(minggegfab <= 0){
+		
+		}// end of function getrek
+	
+	
+	
+	
+	function haist(){
+	
+		abangtres.style.display="none";
+		
+		var balyu = document.getElementById("select1").value;
+		
+		fetch('https://cors-anywhere.herokuapp.com/https://covid-api.mmediagroup.fr/v1/history?ab=' + balyu +'&status=Deaths')
+		.then((resp) => resp.json()) // Transform the data into json
+		.then( data => { 
+		  
+		  try{
+			
+			var gsquare = document.getElementById("kahaponito").textContent; 
+			var gaab = data;
+			var gbab = JSON.stringify(gaab);
+			var gcab = JSON.parse(gbab);
+		
+			var gdab = (gcab.All.dates[gsquare]);  // answer kahapon
+			var geab = oww.textContent;
+			var gfab = geab.replace(/\D/g, "");  // regex only numbers 
+		
+			var minggegfab = (parseFloat(gfab) - parseFloat(gdab));
+			var mingmingab = konvert.format(minggegfab).toString();
+		
+			var plasab = ("+").fontcolor("#F7653F");
+			var cobraab = mingmingab.fontcolor("#FFEEAA");
+			
+			
+		
+			
+		   if (minggegfab > gdab){
+			abangtres.style.display="block";
+			//abangwan.innerHTML=("Unable To Fetch Previous data");
+			abangtres.innerHTML=("</br>");
+			
+			
+			 
+			}
+			
+			else if(minggegfab <= 0){
+				abangtres.style.display="block";
+				abangtres.innerHTML=("</br>");
+				
+		
+			} 
+		  
+		  else{  
+			abangtres.style.display="block";
+			abangtres.innerHTML=(plasab +  cobraab + " From The Previous Count");
+			
+		   }
+		  
+		 }catch(err){
 			abangtres.style.display="block";
 			abangtres.innerHTML=("</br>");
 			
-	
-		} 
-	  
-	  else{  
-		abangtres.style.display="block";
-		abangtres.innerHTML=(plasab +  cobraab + " From The Previous Count");
-		
-	   }
-	  
-	 }catch(err){
-		abangtres.style.display="block";
-		abangtres.innerHTML=("</br>");
-		
-	 }
-	 
-	  
-		 });
+		 }
+		 
 		  
-		  
-	
-	
-	}// end of function haist
+			 });
+			  
+			  
+		
+		
+		}// end of function haist
+		
 	
 
 	
